@@ -70,7 +70,7 @@
   (send *ri* :wait-interpolation)
 
   (hrp2w-stop-grasp *lruse*)
-  (setq *ri* :wait-interpolation)
+  (send *ri* :wait-interpolation)
 
   (setq *dest* (send *umb-dest-pos* :copy-worldcoords))
   (send *dest* :translate (float-vector 0 (* 20 *lrsign*) 0))
