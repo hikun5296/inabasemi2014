@@ -51,7 +51,7 @@
 
 (objects (list *hrp2w*))
 
-(defun detect ()
+(defun detect (&optional(c 0))
   (setq *obj-tf-red* nil)
   (setq *obj-tf-blue* nil)
   (setq *umb-pos* nil)
@@ -78,13 +78,19 @@
 	  (setq *umb-pos-blue* (send *torso-co* :transform *target-co*))
 	  (setq *detect-flag* (+ *detect-flag* 2))))))
   (cond
+   ((and (= c 1) (= *detect-flag* 3)) (setq *detect-flag* 1))
+   ((and (= c 1) (= *detect-flag* 2)) (setq *detect-flag* 0))
+   ((and (= c 2) (= *detect-flag* 3)) (setq *detect-flag* 2))
+   ((and (= c 2) (= *detect-flag* 1)) (setq *detect-flag* 0))
+   )
+  (cond
    ((= *detect-flag* 3)
     (let ((choice (read-char-case
-		  ";; r (red) or b (blue): "
-		  (#\r 1)
-		  (#\b 2))))
-      (when (= choice 1) (setq *umb-pos* *umb-pos-red*))
-      (when (= choice 2) (setq *umb-pos* *umb-pos-blue*)))
+		   ";; r (red) or b (blue): "
+		   (#\r 1)
+		   (#\b 2))))
+      (when (= choice 1) (setq *umb-pos* *umb-pos-red*) (setq *detect-flag* 1))
+      (when (= choice 2) (setq *umb-pos* *umb-pos-blue*) (setq *detect-flag* 2)))
     )
    ((= *detect-flag* 2)
     (setq *umb-pos* *umb-pos-blue*)
@@ -95,8 +101,8 @@
     (print "found red")
     )
    (t
-    (print "not found"
-	   )
+    (print "not found")
+    (setq "umb-pos" nil)
     ))
   (when *umb-pos*
     (if (> (elt (send *umb-pos* :pos) 1) 0)
@@ -121,9 +127,11 @@
   )
 
 (defun ready ()
-  (when (> (elt (send *umb-pos* :pos) 0) 900)
-    (send *vmax* :go-pos-relative-unsafe (- (elt (send *umb-pos* :pos) 0) 900) (elt (send *umb-pos* :pos) 1) 0 5000)
+  (when (> (elt (send *umb-pos* :pos) 0) 800)
+    (send *vmax* :go-pos-relative-unsafe (- (elt (send *umb-pos* :pos) 0) 800) (elt (send *umb-pos* :pos) 1) 0 5000)
     (send *vmax* :wait-interpolation)
+    (when *umb-pos-red* (detect 1))
+    (when *umb-pos-blue* (detect 2))
     )
   (setq *dest* (send *umb-dest-pos* :copy-worldcoords))
   (send *dest* :translate (float-vector -100 0 0))
