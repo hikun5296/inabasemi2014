@@ -122,7 +122,7 @@
 
 (defun ready ()
   (when (> (elt (send *umb-pos* :pos) 0) 900)
-    (send *vmax* :go-pos-relative-unsafe (- (elt (send *umb-pos* :pos) 0) 900) 0 0 5000)
+    (send *vmax* :go-pos-relative-unsafe (- (elt (send *umb-pos* :pos) 0) 900) (elt (send *umb-pos* :pos) 1) 0 5000)
     (send *vmax* :wait-interpolation)
     )
   (setq *dest* (send *umb-dest-pos* :copy-worldcoords))
