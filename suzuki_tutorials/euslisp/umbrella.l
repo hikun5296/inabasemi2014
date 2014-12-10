@@ -121,6 +121,10 @@
   )
 
 (defun ready ()
+  (when (> (elt (send *umb-pos* :pos) 0) 900)
+    (send *vmax* :go-pos-relative-unsafe (- (elt (send *umb-pos* :pos) 0) 900) 0 0 5000)
+    (send *vmax* :wait-interpolation)
+    )
   (setq *dest* (send *umb-dest-pos* :copy-worldcoords))
   (send *dest* :translate (float-vector -100 0 0))
   (send *hrp2w* *lruse* :inverse-kinematics *dest* :debug-view t :link-list (send *hrp2w* :link-list (send *hrp2w* *lruse* :end-coords :parent)))
