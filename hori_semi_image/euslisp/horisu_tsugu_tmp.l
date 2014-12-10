@@ -148,12 +148,12 @@
 (defun tsukamur (pet)
 
 
-  (setq *rarm-end* (send *hrp2w* :rarm :end-coords :copy-worldcoords))
-
+  ;;(setq *rarm-end* (send *hrp2w* :rarm :end-coords :copy-worldcoords))
+  (setq *rarm-end* (make-cascoords))
   (send *rarm-end* :locate pet :world)
   (send *rarm-end* :translate #f(-150 -30 50) :world)
 
-  (send *hrp2w* :rarm :inverse-kinematics *rarm-end* :rotation-axis :x
+  (send *hrp2w* :rarm :inverse-kinematics *rarm-end* :rotation-axis :z
 	:debug-view t :torso t :link-list (send *hrp2w* :link-list (send
 								    *hrp2w* :rarm :end-coords :parent) (car (send *hrp2w* :torso :links))))
 
@@ -168,12 +168,12 @@
   (hrp2w-stop-grasp :rarm)
   ;;
 
-  (send *hrp2w* :rarm :wrist-y :joint-angle (- (send *hrp2w* :rarm :wrist-y :joint-angle) 10))
-  (send *ri* :angle-vector (send *hrp2w* :angle-vector))
+  ;;(send *hrp2w* :rarm :wrist-y :joint-angle (- (send *hrp2w* :rarm :wrist-y :joint-angle) 10))
+  ;;(send *ri* :angle-vector (send *hrp2w* :angle-vector) 1000)
 
   (send *rarm-end* :translate #f(80 0 0) :world)
 
-  (send *hrp2w* :rarm :inverse-kinematics *rarm-end* :rotation-axis :x
+  (send *hrp2w* :rarm :inverse-kinematics *rarm-end* :rotation-axis :z
 	:debug-view t :torso t :link-list (send *hrp2w* :link-list (send
 								    *hrp2w* :rarm :end-coords :parent) (car (send *hrp2w* :torso :links))))
 
@@ -281,6 +281,6 @@
   ;;(tsukamul (send *ik-target* :pos) )
   ;;(send *rarm-end* :locate (send *ik-target* :pos) :world)
   (kamae)
-  (tsugu)
+  (tsugu))
 
 (ros::spin-once)
