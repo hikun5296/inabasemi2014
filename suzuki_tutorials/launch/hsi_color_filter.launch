@@ -7,11 +7,11 @@
   ;; subscribe camera/depth_registered/hsi_output
   ;; subscribe tf and find /target
   -->
-  <arg name="INPUT" default="hsi_input"/>
+  <arg name="INPUT" default="points"/>
   <arg name="OUTPUT1" default="hsi_output1"/>
   <arg name="OUTPUT2" default="hsi_output2"/>
   <arg name="CENTROID_FRAME" default="target"/>
-  <arg name="DEFAULT_NAMESPACE" default="HSI_color_filter"/>
+  <arg name="DEFAULT_NAMESPACE" default="/camera_remote/depth_registered"/>
 
   <arg name="h_max_1" default="-1" />
   <arg name="h_min_1" default="-30" />
