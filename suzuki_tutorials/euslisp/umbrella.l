@@ -97,20 +97,20 @@
    (t
     (print "not found"
 	   )
-    )
-   (when *umb-pos*
-     (if (> (elt (send *umb-pos* :pos) 1) 0)
-	 (progn
-	   (setq *lruse* ':larm)
-	   (setq *lrsign* 1)
-	   (print "use larm"))
-       (progn
-	 (setq *lruse* ':rarm)
-	 (setq *lrsign* -1)
-	 (print "use rarm")))
-     (setq *umb-dest-pos* (send *hrp2w* *lruse* :end-coords :copy-worldcoords))
-     (send *umb-dest-pos* :locate (send *umb-pos* :pos) :world)
-     (objects (list *hrp2w* *umb-pos* *umb-dest-pos*)))))
+    ))
+  (when *umb-pos*
+    (if (> (elt (send *umb-pos* :pos) 1) 0)
+	(progn
+	  (setq *lruse* ':larm)
+	  (setq *lrsign* 1)
+	  (print "use larm"))
+      (progn
+	(setq *lruse* ':rarm)
+	(setq *lrsign* -1)
+	(print "use rarm")))
+    (setq *umb-dest-pos* (send *hrp2w* *lruse* :end-coords :copy-worldcoords))
+    (send *umb-dest-pos* :locate (send *umb-pos* :pos) :world)
+    (objects (list *hrp2w* *umb-pos* *umb-dest-pos*))))
 
 
 (defun reset ()

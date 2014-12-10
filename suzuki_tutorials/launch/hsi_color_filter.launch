@@ -17,17 +17,17 @@
   <arg name="h_min_1" default="-30" />
   <arg name="s_max_1" default="255" />
   <arg name="s_min_1" default="125" />
-  <arg name="v_max_1" default="175" />
-  <arg name="v_min_1" default="48" />
+  <arg name="i_max_1" default="175" />
+  <arg name="i_min_1" default="48" />
 
-  <arg name="h_max_2" default="-105" />
+  <arg name="h_max_2" default="-60" />
   <arg name="h_min_2" default="-114" />
-  <arg name="s_max_2" default="255" />
+  <arg name="s_max_2" default="214" />
   <arg name="s_min_2" default="125" />
-  <arg name="v_max_2" default="175" />
-  <arg name="v_min_2" default="48" />
+  <arg name="i_max_2" default="150" />
+  <arg name="i_min_2" default="80" />
 
-  <arg name="create_manager" default="false" />
+  <arg name="create_manager" default="true" />
   <arg name="manager" default="hsi_filter_manager" />
 
   <group ns="$(arg DEFAULT_NAMESPACE)">
@@ -46,8 +46,8 @@
       <param name="h_limit_min" value="$(arg h_min_1)" />
       <param name="s_limit_max" value="$(arg s_max_1)" />
       <param name="s_limit_min" value="$(arg s_min_1)" />
-      <param name="v_limit_max" value="$(arg v_max_1)" />
-      <param name="v_limit_min" value="$(arg v_min_1)" />
+      <param name="i_limit_max" value="$(arg i_max_1)" />
+      <param name="i_limit_min" value="$(arg i_min_1)" />
     </node>
     <node pkg="nodelet" type="nodelet" name="euclidean_clustering1"
           args="load jsk_pcl/EuclideanClustering $(arg manager)" output="screen">
@@ -67,7 +67,7 @@
       <rosparam>
       </rosparam>
     </node>
-    
+
     <node pkg="nodelet" type="nodelet" name="hsi_filter2"
           args="load jsk_pcl/HSIColorFilter $(arg manager)" output="screen">
       <remap from="~input" to="$(arg INPUT)" />
@@ -79,8 +79,8 @@
       <param name="h_limit_min" value="$(arg h_min_2)" />
       <param name="s_limit_max" value="$(arg s_max_2)" />
       <param name="s_limit_min" value="$(arg s_min_2)" />
-      <param name="v_limit_max" value="$(arg v_max_2)" />
-      <param name="v_limit_min" value="$(arg v_min_2)" />
+      <param name="i_limit_max" value="$(arg i_max_2)" />
+      <param name="i_limit_min" value="$(arg i_min_2)" />
     </node>
     <node pkg="nodelet" type="nodelet" name="euclidean_clustering2"
           args="load jsk_pcl/EuclideanClustering $(arg manager)" output="screen">
