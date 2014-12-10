@@ -79,10 +79,10 @@
 	  (setq *detect-flag* (+ *detect-flag* 2))))))
   (cond
    ((= *detect-flag* 3)
-    (let (choice (read-char-case
+    (let ((choice (read-char-case
 		  ";; r (red) or b (blue): "
 		  (#\r 1)
-		  (#\l 2)))
+		  (#\b 2))))
       (when (= choice 1) (setq *umb-pos* *umb-pos-red*))
       (when (= choice 2) (setq *umb-pos* *umb-pos-blue*)))
     )
